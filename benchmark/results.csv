@@ -1,0 +1,49 @@
+model_label,model_id,task_id,category,wall_seconds,time_to_first_token_s,tokens,tokens_per_sec,answer,judge_note,your_score_1to5
+Qwen3 1.7B,qwen3:1.7b,translation_fa_de,Translation FA->DE,13.6,0.14,500,45.83,Ich trinke jeden Tag Kaffee vor dem Arbeiten und übe ein bisschen Deutsch.,Native check: is the German natural? Is the meaning fully preserved?,
+Qwen3 1.7B,qwen3:1.7b,translation_de_fa,Translation DE->FA,21.67,0.36,844,45.53,من امروز روز گرم به مرکز ادارت محلی رفتنیم، زیرا در اطلاعات منظور من را به روزگار تغییر دهم.,Native check: is the Persian fluent or robotic/word-salad?,
+Qwen3 1.7B,qwen3:1.7b,grammar,Grammar tutor,13.14,0.48,472,46.83,"Use **der** for **masculine** nouns starting with a consonant (not b, d, f, m, n, p, t, s, z).  
+Use **die** for **feminine** nouns (like *Tasse* [cup]).  
+Use **das** for **neuter** nouns (like *Tisch* [table]).  
+
+**Memory Trick:** Think of ""D for der, D for die, D for das"" (all start with 'd'), and remember: **der** = masculine, **die** = feminine, **das** = neutral. Visualize a house, cup, and table (der, die, das).  
+
+(120 words)",Is the explanation correct AND actually helpful to a beginner?,
+Qwen3 1.7B,qwen3:1.7b,correction,Correct my German,21.72,0.37,832,44.88,"**Corrected sentence:**  
+""Ich habe gestern in die Schule gegangen und habe gesehen meinen Freund.""
+
+---
+
+**Explanation of mistakes:**  
+1. **Article error:**  
+   - The original sentence uses ""meine Freund"" (feminine article ""meine"" for a masculine noun ""Freund"").  
+   - **Correct:** ""mein Freund"" (masculine article ""mein"" for ""Freund"").  
+   - **Why:** ""Freund"" is a masculine noun, so the correct article is ""mein"" (masculine), not ""meine"" (feminine).
+
+2. **Tense consistency:**  
+   - The verbs ""gegangen"" and ""gesehen"" are in the past tense, which is correct.  
+   - **No mistake here.**
+
+3. **Conjunction usage:**  
+   - The conjunction ""und"" is correctly used to join two past actions.  
+   - **No mistake here.**
+
+---
+
+**Summary:**  
+The main mistake was the incorrect article ""meine"" for the masculine noun ""Freund."" The correct article is ""mein,"" making the sentence grammatically accurate.","Did it fix BOTH errors (auxiliary 'bin', word order) correctly?",
+Qwen3 1.7B,qwen3:1.7b,roleplay,Conversation practice,8.48,0.47,260,46.69,"Hallo! Wie geht's? Was möchtest du haben?  
+Ich möchte ein Brot oder eine Kekse. Könntest du mir das zeigen?",Natural beginner German? Right difficulty? Does it stay in character?,
+Qwen3 1.7B,qwen3:1.7b,vocab,Vocab + example,24.65,0.38,940,44.19,"The German word for the Persian term **""صبر"" (patience)** is **""Sabr""** (a loanword, often used in German). 
+
+### Article:  
+- **Definite article**: **""der Sabr""** (masculine).  
+- **Indefinite article**: **""der Sabr""** (used in contexts where the noun is not specific, e.g., ""Sabr ist wichtig"" – ""Patience is important"").  
+
+### Plural:  
+- **""Sabras""** (plural of ""Sabr"").  
+
+### Example Sentence:  
+**""Er zeigt Sabr in der Herausforderung.""**  
+**Translation:** ""He shows patience in the challenge.""  
+
+Note: ""Sabr"" is a loanword and is typically used without an article in informal contexts, but the definite article **""der""** is standard in formal or written German.",Correct article/word? Is the example sentence actually correct German?,

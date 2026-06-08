@@ -1,62 +1,66 @@
-# Episode 1 — X thread
+# Episode 1 — X thread (Qwen3 1.7B) — REAL RESULTS
 
-> Draft. One idea per tweet. Screenshots where noted. No link until the final reply.
+> One idea per tweet. Screenshots where noted. No link until the final reply.
 
 ---
 
 **1/**
-The internet says my laptop is too weak to run AI.
+The internet says my 6-year-old laptop is too weak for AI.
 
 2019 ultrabook. 4GB GPU. The 2026 guides literally say this "runs small models poorly."
 
-So I ran the smallest decent model anyway — and tested if it can teach me German.
+So I ran a tiny offline AI anyway — and asked it to teach me German.
 
-Here's what happened 🧵
+As a native Persian speaker, I caught things an English reviewer never could 🧵
 
 **2/**
-The setup is one command. That's the whole install:
+Setup is one command, fully offline, nothing leaves my laptop:
 
 `ollama pull qwen3:1.7b`
 
-1.7 billion parameters. Tiny. Runs fully offline. Nothing I type ever leaves the laptop — which matters when you're sharing your bad German and personal notes.
+1.7 billion parameters. It ran at ~45 tokens/sec on my weak GPU — genuinely fast. So far, impressive.
 
-[screenshot: terminal pull]
+Then I gave it 6 real tasks. [screenshot: terminal]
 
 **3/**
-Test 1 — Persian → German translation.
+Test 1 — Persian → German. ✅ mostly good.
 
-I gave it an everyday Persian sentence. As a native speaker I can tell instantly if the German is natural or robotic.
-
-Result: [your verdict + screenshot]
+It produced natural German... but quietly DROPPED the word "morning" from my sentence. Small meaning loss you'd never notice if you don't speak both languages. 4/5.
 
 **4/**
-Test 2 — the grammar tutor.
+Test 2 — German → Persian. ❌ this is where it fell apart.
 
-"Explain der/die/das to a beginner." This is where most tools either oversimplify or confuse you.
+The Persian was word-salad. Invented words, broken grammar, a hallucinated "hot day" that was never in the sentence.
 
-[your verdict + screenshot]
+A native speaker spots this instantly. An English reviewer would've called it "fine." 1/5. [screenshot]
 
 **5/**
-Test 3 — correct my broken German.
+Test 3 — explain German grammar (der/die/das).
 
-I fed it a sentence with two classic learner mistakes. Did a 1.7B model catch both?
+It sounded confident and helpful... and was WRONG. It claimed "Tisch" (table) is neuter. It's *der* Tisch — masculine.
 
-[your verdict + screenshot]
+Confidently wrong is the most dangerous kind of tutor. 2/5.
 
 **6/**
-Speed on a 4GB GPU: [X tokens/sec].
+Test 4 — fix my broken German sentence.
 
-For a model this small on hardware this old — [honest take: usable? painful?].
+There were two real errors. It fixed NEITHER, then declared the sentence correct. 1/5.
+
+A beginner would walk away more confused than before.
 
 **7/**
-Verdict on Qwen3 1.7B as an offline German tutor: [✅/⚠️/❌]
+Verdict on Qwen3 1.7B as an offline German tutor: ❌
 
-Next episode I test Gemma 3 4B — the one the guides say is actually the best pick for weak GPUs. Follow so you don't miss the leaderboard building up.
+Fast and fluent — but broken Persian, invented grammar, and it can't fix mistakes. Fluency ≠ correctness.
+
+Next episode: Gemma 3 4B, the model the guides say is actually the best for weak GPUs. Follow to watch the leaderboard build 👇
 
 ---
 
-**Final reply (with link):**
+**Final reply (with links):**
 
-Same prompts, same weak laptop — run the exact test yourself:
+Everything is open & reproducible — same prompts, same weak laptop, run it yourself:
 
-🔗 [your GitHub repo link]
+🔗 github.com/aghadavood/local-ai-tutor
+
+Full video: [link]

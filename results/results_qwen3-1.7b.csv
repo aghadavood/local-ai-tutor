@@ -1,0 +1,7 @@
+model_label,model_id,task_id,category,wall_seconds,time_to_first_token_s,tokens,tokens_per_sec,answer,judge_note,your_score_1to5
+Qwen3 1.7B,qwen3:1.7b,translation_fa_de,Translation FA->DE,13.6,0.14,500,45.83,Ich trinke jeden Tag Kaffee vor dem Arbeiten und uebe ein bisschen Deutsch.,Native check: natural German? meaning preserved?,4
+Qwen3 1.7B,qwen3:1.7b,translation_de_fa,Translation DE->FA,21.67,0.36,844,45.53,(broken Persian word-salad - hallucinated 'hot day' and invented conjugation),Native check: fluent or word-salad?,1
+Qwen3 1.7B,qwen3:1.7b,grammar,Grammar tutor,13.14,0.48,472,46.83,(confident but wrong: claimed Tisch is neuter - it is der Tisch masculine),correct AND helpful?,2
+Qwen3 1.7B,qwen3:1.7b,correction,Correct my German,21.72,0.37,832,44.88,(missed both real errors: bin vs habe and word order),fixed BOTH errors?,1
+Qwen3 1.7B,qwen3:1.7b,roleplay,Conversation practice,8.48,0.47,260,46.69,(natural beginner German but answered for the customer; 'eine Kekse' wrong),natural? in character?,3
+Qwen3 1.7B,qwen3:1.7b,vocab,Vocab + example,24.65,0.38,940,44.19,(invented 'der Sabr' - correct answer is die Geduld),correct word/article/example?,1
