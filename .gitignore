@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Large media — keep these out of git; link to YouTube/X instead
+*.mp4
+*.mov
+*.avi
+assets/raw/
+
+# Work-in-progress results (keep finished ones)
+results/*_wip.csv

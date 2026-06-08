@@ -1,0 +1,2 @@
+model_label,model_id,task_id,category,wall_seconds,time_to_first_token_s,tokens,tokens_per_sec,answer,judge_note,your_score_1to5
+Qwen3 1.7B,qwen3:1.7b,translation_fa_de,Translation FA->DE,3.41,0.52,48,14.1,"(example row — your real output lands here)","Native check: is the German natural?",4
