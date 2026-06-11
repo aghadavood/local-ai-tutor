@@ -29,6 +29,29 @@ python benchmark.py --help
 | `correction` | fixing + explaining a broken German sentence |
 | `roleplay` | A2-level bakery conversation |
 | `vocab` | word + article + plural + example sentence |
+| `teach_from_chapter` | **the real job** — load the Herr Klaus persona + a chapter file and start a lesson (see below) |
+
+## The `teach_from_chapter` task — the real job
+This is the test that actually matters: can the model *be* Herr Klaus? It loads the
+bot's `SOUL.md` + a chapter file and asks the model to start a lesson. Judge whether it
+stayed in German and in character, taught **from the chapter** (not improvised),
+presented one step at a time, and didn't hallucinate content.
+
+By default it reads the files from the bot repo cloned next to this one:
+```
+../../german-teacher-openclaw/agent-files/SOUL.md
+../../german-teacher-openclaw/curriculum/kapitel-00-sample.md
+```
+If your paths differ, pass them explicitly:
+```bash
+python benchmark.py --model gemma3:4b --label "Gemma 3 4B" \
+  --soul /path/to/SOUL.md --chapter /path/to/chapter.md
+```
+If the files aren't found, this one task is skipped with a message and the others still run.
+
+> ⚠️ This is a **single-shot approximation**. It catches the worst failures (ignoring the
+> chapter, breaking character, dumping everything at once). The TRUE test is a live
+> multi-turn lesson with the model plugged into the bot .
 
 ## Output
 Results append to `results.csv` (one growing file across all episodes). Columns:

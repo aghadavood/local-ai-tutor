@@ -90,7 +90,52 @@ TASKS = [
                   "plural if any, and one simple example sentence with English translation.",
         "judge_note": "Correct article/word? Is the example sentence actually correct German?",
     },
+    {
+        # THE REAL JOB: can the model BE Herr Klaus from a chapter file?
+        # This task loads SOUL.md + a chapter file and asks the model to start a
+        # lesson. It's a single-shot approximation of the live tutor — it catches
+        # the worst failures (ignoring the chapter, breaking character, dumping
+        # everything at once), but the true test is a live multi-turn lesson (Level 2).
+        "id": "teach_from_chapter",
+        "category": "Teach from chapter (the real job)",
+        "prompt_builder": "herr_klaus",  # built at runtime from files, see build_herr_klaus_prompt()
+        "judge_note": "Stayed in German + in character as Herr Klaus? Taught FROM the chapter "
+                      "(not improvised)? Presented ONE thing at a time? No hallucinated content?",
+    },
 ]
+
+# Where to find the persona + sample chapter for the teach_from_chapter task.
+# Defaults assume you cloned the bot repo next to this one. Override with
+# --soul and --chapter if your paths differ.
+DEFAULT_SOUL_PATH = "../../german-teacher-openclaw/agent-files/SOUL.md"
+DEFAULT_CHAPTER_PATH = "../../german-teacher-openclaw/curriculum/kapitel-00-sample.md"
+
+
+def build_herr_klaus_prompt(soul_path, chapter_path):
+    """Construct the teach-from-chapter prompt from the persona + a chapter file."""
+    try:
+        with open(soul_path, encoding="utf-8") as fh:
+            soul = fh.read()
+        with open(chapter_path, encoding="utf-8") as fh:
+            chapter = fh.read()
+    except FileNotFoundError as e:
+        return None, (f"Could not find persona/chapter file ({e}). "
+                      f"Pass --soul and --chapter with correct paths, or skip this task with "
+                      f"--tasks (all the others).")
+
+    prompt = (
+        "You are an AI German teacher. Below is your personality file (SOUL.md) and "
+        "ONE textbook chapter. Follow the persona exactly. Start the lesson: greet the "
+        "student in German, then begin teaching FROM THIS CHAPTER ONLY — present just the "
+        "first small step (do NOT dump the whole chapter at once), and wait for the student.\n\n"
+        "===== SOUL.md (your persona) =====\n"
+        f"{soul}\n\n"
+        "===== CURRENT CHAPTER =====\n"
+        f"{chapter}\n\n"
+        "===== STUDENT MESSAGE =====\n"
+        "Hallo! Ich bin bereit. Lass uns anfangen.\n"
+    )
+    return prompt, None
 
 
 def list_task_ids():
@@ -139,7 +184,7 @@ def call_ollama(model, prompt, timeout=300):
     }
 
 
-def run(model, label, task_ids):
+def run(model, label, task_ids, soul_path, chapter_path):
     selected = [t for t in TASKS if not task_ids or t["id"] in task_ids]
     if not selected:
         print(f"No matching tasks. Available: {', '.join(list_task_ids())}")
@@ -160,7 +205,17 @@ def run(model, label, task_ids):
 
         for t in selected:
             print(f"--- {t['category']} ({t['id']}) ---")
-            result = call_ollama(model, t["prompt"])
+
+            # Build the prompt: static for normal tasks, file-based for teach_from_chapter.
+            if t.get("prompt_builder") == "herr_klaus":
+                prompt, err = build_herr_klaus_prompt(soul_path, chapter_path)
+                if err:
+                    print("  SKIPPED:", err, "\n")
+                    continue
+            else:
+                prompt = t["prompt"]
+
+            result = call_ollama(model, prompt)
             if "error" in result:
                 print("  ERROR:", result["error"])
                 sys.exit(1)
@@ -190,9 +245,15 @@ def main():
     p.add_argument("--label", default="", help="Friendly name for the leaderboard, e.g. 'Qwen3 1.7B'")
     p.add_argument("--tasks", default="", help="Comma-separated task ids to run a subset. "
                                                f"Available: {', '.join(list_task_ids())}")
+    p.add_argument("--soul", default=DEFAULT_SOUL_PATH,
+                   help="Path to SOUL.md for the teach_from_chapter task "
+                        f"(default: {DEFAULT_SOUL_PATH})")
+    p.add_argument("--chapter", default=DEFAULT_CHAPTER_PATH,
+                   help="Path to a chapter .md for the teach_from_chapter task "
+                        f"(default: {DEFAULT_CHAPTER_PATH})")
     args = p.parse_args()
     task_ids = [x.strip() for x in args.tasks.split(",") if x.strip()]
-    run(args.model, args.label, task_ids)
+    run(args.model, args.label, task_ids, args.soul, args.chapter)
 
 
 if __name__ == "__main__":
